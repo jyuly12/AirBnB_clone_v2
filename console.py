@@ -126,12 +126,10 @@ class HBNBCommand(cmd.Cmd):
         for x, parameter in enumerate(args):
             if x != 0:
                 key_value = parameter.split("=")
-                print("before eval: {}".format(key_value[1]))
                 value = key_value[1].replace("_", " ")
                 value = key_value[1].replace("\"", "")
                 try:
                     value = eval(value)
-                    print("after eval: {}".format(value))
                 except:
                     pass
                 setattr(new_instance, key_value[0], value)
