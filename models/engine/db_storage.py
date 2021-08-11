@@ -26,10 +26,10 @@ class DBStorage:
         """Initialice DBStorage paramethers"""
 
         engine_str = "mysql+mysqldb://{}:{}@{}/{}".format(
-            environ.get["HBNB_MYSQL_USER"],
-            environ.get["HBNB_MYSQL_PWD"],
-            environ.get["HBNB_MYSQL_HOST"],
-            environ.get["HBNB_MYSQL_DB"])
+            environ.get("HBNB_MYSQL_USER"),
+            environ.get("HBNB_MYSQL_PWD"),
+            environ.get("HBNB_MYSQL_HOST"),
+            environ.get("HBNB_MYSQL_DB"))
 
         self.__engine = create_engine(engine_str, pool_pre_ping=True)
 
