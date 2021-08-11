@@ -13,13 +13,14 @@ from models.state import State
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
 
+classes = ["User", "State", "City", "Amenity", "Place", "Review"]
+
 
 class DBStorage:
     """This class serializes/deserializes instances to a JSON file"""
 
     __engine = None
     __session = None
-    classes = ["User", "State", "City", "Amenity", "Place", "Review"]
 
     def __init__(self):
         """Initialice DBStorage paramethers"""
