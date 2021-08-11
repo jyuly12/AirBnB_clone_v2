@@ -36,7 +36,7 @@ class DBStorage:
         if environ.get("HBNB_ENV") == 'test':
             Base.metadata.drop_all(bind=self.__engine)
 
-    def all(self):
+    def all(self, cls=None):
         """Return a list of objects"""
 
         query = []
