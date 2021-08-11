@@ -50,7 +50,7 @@ class DBStorage:
             for class_name in classes:
                 query = (self.__session.query(eval(class_name)).all())
                 for item in query:
-                    key = "{}.{}".format(item.__class__.__name_, item.id)
+                    key = "{}.{}".format(item.__class__.__name__, item.id)
                     new_dict[key] = item
 
         return new_dict
