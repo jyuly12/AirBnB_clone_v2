@@ -3,7 +3,7 @@
 import json
 from os import environ
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.amenity import Amenity
 from models.city import City
@@ -26,10 +26,10 @@ class DBStorage:
         """Initialice DBStorage paramethers"""
 
         engine_str = "mysql+mysqldb://{}:{}@{}/{}".format(
-            os.environ["HBNB_MYSQL_USER"],
-            os.environ["HBNB_MYSQL_PWD"],
-            os.environ["HBNB_MYSQL_HOST"],
-            os.environ["HBNB_MYSQL_DB"])
+            environ.get["HBNB_MYSQL_USER"],
+            environ.get["HBNB_MYSQL_PWD"],
+            environ.get["HBNB_MYSQL_HOST"],
+            environ.get["HBNB_MYSQL_DB"])
 
         self.__engine = create_engine(engine_str, pool_pre_ping=True)
 
