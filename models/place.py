@@ -6,6 +6,14 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from os import environ
 
+association_table = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
+                                 primary_key=True, nullable=False)
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
+                                 primary_key=True, nullable=False))
+)
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -21,9 +29,12 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
     if environ.get("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship(
             "Review", cascade="all, delete, delete-orphan", backref="place")
+        amenities = relationship("Amenity", secondary="place_amenity",
+                                 back_populates="parents")
     else:
         @property
         def reviews(self):
@@ -34,3 +45,13 @@ class Place(BaseModel, Base):
                 if value.place_id == self.id:
                     list_place_id.append(value)
             return list_place_id
+
+        @property
+        def amenities(self):
+            from models import amenities
+            list_amenities_id = []
+            amenities = storage.all(Amenity)
+            for value in amenities.values():
+                if value.place_id == self.id:
+                    list_amenities.append(value)
+            return list_amenities
