@@ -33,8 +33,7 @@ class Place(BaseModel, Base):
     if environ.get("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship(
             "Review", cascade="all, delete, delete-orphan", backref="place")
-        amenities = relationship("Amenity", secondary="place_amenity",
-                                 back_populates="parents")
+        amenities = relationship("Amenity", secondary="place_amenity")
     else:
         @property
         def reviews(self):
@@ -48,10 +47,15 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            from models import amenities
+            from models.amenity import Amenity
             list_amenities_id = []
             amenities = storage.all(Amenity)
             for value in amenities.values():
                 if value.place_id == self.id:
                     list_amenities.append(value)
             return list_amenities
+
+        @amenities.setter
+        def amenities(self, value):
+            if value == Amenity:
+                self.amenity_ids.append(value.id)
