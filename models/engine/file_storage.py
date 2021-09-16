@@ -20,10 +20,9 @@ class FileStorage:
         except KeyError:
             pass
 
-
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls != None:
+        if cls is not None:
             new_dict = {}
             for key, value in FileStorage.__objects.items():
                 if type(value) == cls:
