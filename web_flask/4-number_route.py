@@ -41,6 +41,7 @@ def python_is_cool(text='is cool'):
     """
     return 'Python %s' % text.replace('_', ' ')
 
+
 @app.route('/number/<int:n>')
 def number(n):
     """
